@@ -7,7 +7,7 @@ Nginx + PHP 7.0 + MySQL + Laravel 環境快速生成器
 3. 下 docker exec -it startup_php sh 進入 docker container
 4. 下 php ~/composer.phar create-project --prefer-dist laravel/laravel web 安裝 Laravel
 5. 進入 web 資料夾中
-6. 下 chmod -R 777 /storage /bootstrap/cache
+6. 下 chmod -R 777 storage bootstrap/cache
 
 ## 資料庫預設帳密
 帳號: root
