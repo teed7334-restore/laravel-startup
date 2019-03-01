@@ -2,7 +2,7 @@ FROM php:fpm-alpine
 
 RUN apk update
 
-RUN apk add libpng-dev freetype-dev libjpeg-turbo-dev jpeg-dev
+RUN apk add libpng-dev freetype-dev libjpeg-turbo-dev jpeg-dev libzip-dev
 
 RUN docker-php-ext-install zip pdo_mysql
 
