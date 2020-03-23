@@ -1,10 +1,10 @@
-version: '2'
+version: '3.7'
 services: 
   web:
-    image: 'nginx:alpine'
+    image: 'nginx'
     container_name: 'startup_web'
     networks: 
-      - startup-networks
+      - dev_env_server
     ports: 
       - '0.0.0.0:80:80'
     volumes:
@@ -14,80 +14,15 @@ services:
     restart: always
     depends_on:
       - php
-      - node
-      - database
-      - cache
-      - mq
   php:
     build: './php/build'
     image: 'startup-php'
     container_name: 'startup_php'
     networks: 
-      - startup-networks
+      - dev_env_server
     restart: always
     volumes:
       - '../:/var/www/html'
-  phpmyadmin:
-    image: 'phpmyadmin/phpmyadmin'
-    container_name: 'startup_phpmyadmin'
-    networks:
-      - startup-networks
-    ports:
-      - '0.0.0.0:10080:80'
-    restart: always
-    environment:
-      PMA_HOST: startup_database
-    depends_on:
-      - database
-  phpredisadmin:
-    image: 'erikdubbelboer/phpredisadmin'
-    container_name: 'startup_phpredisadmin'
-    networks:
-      - startup-networks
-    ports:
-      - '0.0.0.0:10081:80'
-    restart: always
-    environment:
-      REDIS_1_HOST: startup_cache
-    depends_on:
-      - cache
-  node:
-    build: './node/build'
-    image: 'startup-node'
-    container_name: 'startup_node'
-    networks:
-      - startup-networks
-    restart: always
-    volumes:
-      - '../:/var/www/html'
-  cache:
-    image: 'redis'
-    container_name: 'startup_cache'
-    networks:
-      - startup-networks
-    ports:
-      - '0.0.0.0:6379:6379'
-    restart: always
-  mq:
-    image: 'schickling/beanstalkd'
-    container_name: 'startup_mq'
-    networks:
-      - startup-networks
-    ports:
-      - '0.0.0.0:11300:11300'
-    restart: always
-  database:
-    image: 'mysql:5.7'
-    container_name: 'startup_database'
-    networks: 
-      - startup-networks
-    ports:
-      - '0.0.0.0:3306:3306'
-    volumes:
-      - './mysql/datadir:/var/lib/mysql'
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: 1qazse4rfvgy7
 networks:
-  startup-networks:
+  dev_env_server:
     driver: bridge
