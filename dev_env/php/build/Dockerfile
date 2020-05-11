@@ -1,8 +1,8 @@
-FROM php:fpm
+FROM php:fpm-alpine
 
-RUN apt update
+RUN apk update
 
-RUN apt install -y libzip-dev libpng-dev libgd-dev
+RUN apk add libzip-dev libpng-dev libgd libjpeg libjpeg-turbo-dev freetype-dev
 
 RUN docker-php-ext-install zip pdo_mysql
 
