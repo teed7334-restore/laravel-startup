@@ -1,4 +1,6 @@
 #!/bin/sh
+echo 'nameserver 1.1.1.1' > /etc/resolv.conf
+echo 'nameserver 1.0.0.1' >> /etc/resolv.conf
 cd /var/www/html;
 php composer.phar create-project --prefer-dist laravel/laravel web;
 cd /var/www/html/web;
